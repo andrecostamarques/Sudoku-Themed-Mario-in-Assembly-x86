@@ -1,6 +1,87 @@
 .model small
+LINHA MACRO x,y,tam,cor
+    LOCAL LINHAV
+
+    MOV BL, tam
+    MOV AH, 0CH
+    MOV AL, cor
+    MOV CX, x
+    PUSH CX
+    MOV DX, y
+    PUSH DX
+    LINHAV:
+        int 10H
+        INC CX
+        DEC BL
+        JNZ LINHAV
+    
+    POP DX
+    POP CX
+
+    ENDM
+
+COLUNA MACRO xc,yc,tamc,corc
+    LOCAL COLUNAV
+    MOV BL, tamc
+    MOV AH, 0CH
+    MOV AL, corc
+    MOV CX, xc
+    PUSH CX
+    MOV DX, yc
+    PUSH DX
+    COLUNAV:
+        int 10H
+        INC DX
+        DEC BL
+        JNZ COLUNAV
+    
+    POP DX
+    POP CX
+
+ENDM
+
+
+
+
+
+INTERFACE MACRO xmais, ymais,color
+    LOCAL PRINTAL, PRINTAC
+    MOV CX, xmais
+    MOV DX, ymais
+
+    ADD CX, 170
+    ADD DX, 15
+    PUSH CX
+    PUSH DX
+
+    PRINTAL:
+        LINHA CX, DX, 135, color
+        ADD DX, 15
+        CMP DX, 165
+        JB PRINTAL
+
+    POP DX
+    POP CX
+
+    PRINTAC:
+        COLUNA CX, DX, 135, color
+        ADD CX, 15                                                                                                                                                                                                                                                                                       
+        CMP CX, 320
+        JB PRINTAC
+    
+ENDM
+        
+
+
 .stack 100h
 .data
+    x dw 0
+    y dw 0
+    xmais dw 0
+    ymais dw 0
+    tam db 0
+    cor db 0
+
 .code
     main PROC
         MOV AH, 0
@@ -15,81 +96,7 @@
         MOV AH, 0CH
         MOV AL, 8
 
-        MOV BL, 180
-
-        MOV CX, 70
-        MOV DX, 10
-
-        
-        VOLTACIMA:
-            CALL delay
-
-
-
-            INT 10H
-            PUSH DX
-            TESTE:
-
-                INT 10H
-
-                ADD DX, 20
-
-                CMP DX, 180
-                JB TESTE
-
-            POP DX
-
-            INC CX
-            DEC BL 
-            JNZ VOLTACIMA
-
-        MOV BL, 180
-
-        MOV CX, 250
-        MOV DX, 10
-        VOLTADIREITA:
-            CALL delay
-            INT 10H
-            INC DX
-            DEC BL 
-            JNZ VOLTADIREITA
-
-        MOV BL, 180
-
-        MOV CX, 250
-        MOV DX, 190
-        VOLTABAIXO:
-            CALL delay
-            INT 10H
-            DEC CX
-            DEC BL 
-            JNZ VOLTABAIXO
-
-        MOV BL, 181
-
-        MOV CX, 70
-        MOV DX, 190
-        VOLTAESQUERDA:
-            CALL delay
-            INT 10H
-            PUSH CX
-            TESTE2:
-                INT 10H
-                ADD CX, 20
-
-                CMP CX, 260
-                JB TESTE2
-            
-            POP CX
-
-
-            DEC DX
-            DEC BL 
-            JNZ VOLTAESQUERDA
-
-        
-
-
+        INTERFACE 0,0,8
 
         MOV AH, 4CH
         INT 21H
@@ -98,7 +105,7 @@
 
 delay proc
     PUSH CX
-    MOV CX, 03H
+    MOV CX, 035H
     REPETE: 
         PUSH CX
         MOV CX, 0F90H
@@ -112,30 +119,6 @@ delay proc
     RET
         
 delay endp
-
-pixel_art proc
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-pixel_art endp
-
 
 
 end main
