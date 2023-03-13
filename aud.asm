@@ -57,11 +57,6 @@ pausa macro
 endm
 
 main proc
-    ;printar linha (de qlq ponto a qualquer ponto)
-    ;printar quadrado
-    ;printar quadrado vazio
-    ;printar circulo
-    ;printar circulo vazio
 
     mov ax,@data
     mov ds,ax
@@ -69,13 +64,13 @@ main proc
     
     ;a partir daqui é só dar call nas musicas que quer
 
+    call pokemon
     call zelda
     call megalovania
 
     mov  ah,4CH
     int  21h
-
-
+    
 main endp
 
 note proc
@@ -108,7 +103,6 @@ pause2:
     ret
 
 note endp
-
 
 megalovania proc
 
@@ -265,5 +259,126 @@ volta1:
     jmp volta1
 
 zelda endp
+
+pokemon proc
+
+    nota re1,4
+    pausa
+    nota re1,4
+    nota la2,6
+
+    nota re1,4
+    pausa
+    nota re1,4
+    nota las2,6
+
+    nota re1,4
+    pausa
+    nota re1,4
+    nota la2,6
+
+    nota re1,4
+    pausa
+    nota re1,4
+    nota fas2,6
+
+    nota re1,4
+    pausa
+    nota re1,4
+    nota la2,6
+
+    nota re1,4
+    pausa
+    nota re1,4
+    nota dos3,6
+
+    nota re3,10
+    nota do1,15
+
+    nota do3,10
+    nota mi1,15
+
+    pausa
+
+    nota re1,4
+    pausa
+    nota re1,4
+    nota la2,6
+
+    nota re1,4
+    pausa
+    nota re1,4
+    nota las2,6
+
+    nota re1,4
+    pausa
+    nota re1,4
+    nota do3,6
+
+    nota re1,4
+    pausa
+    nota re1,4
+    nota dos3,6
+
+    nota re3,20
+    ;acabou a introducao da musica, comeca agr o refrao
+
+    nota sol1,10
+    pausa
+    nota sol1,3
+    pausa 
+    nota sol1,3
+    pausa
+    nota sol1,3
+    pausa 
+    nota sol1,5
+    pausa 
+    nota sol1,3
+    pausa
+    nota sol1,3
+    nota fa1,4
+    pausa
+    nota fa1,4
+    pausa 
+    nota fa1,6
+    pausa
+    nota fa1,3
+    pausa 
+    nota fa1,3
+    nota fas1,12 
+    ;finaliza a ponte, inicio da boa agr
+
+    nota sol1,12
+    nota si1,5
+    nota re2,6
+    pausa
+    nota fa1,8
+    pausa 
+    nota la1,7
+    nota fa2,5
+    nota mi2,4
+    nota res2,5
+    nota re2,8
+
+    nota do1,20
+
+    pausa 
+    pausa
+
+    nota sol1,12
+    nota si1,5
+    nota re2,8
+
+    nota la1,7
+    nota do2,4
+    nota la1,4
+    nota do2,4
+    nota re2,10
+
+    nota do1,20
+ret
+
+
+pokemon endp
 
 end main
