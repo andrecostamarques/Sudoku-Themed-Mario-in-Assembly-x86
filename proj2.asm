@@ -1,3 +1,4 @@
+
 TITLE ANDRE MARQUES 22001640 ENZO SOUZA 22006135
 
 .model small
@@ -1808,3 +1809,26 @@ note endp
 
 
 end main
+=======
+.data
+
+
+
+.data?
+
+
+
+.stack
+.code
+main proc
+
+
+
+
+
+
+
+
+
+endp main
+main end
